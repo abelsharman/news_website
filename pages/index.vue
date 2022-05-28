@@ -11,21 +11,30 @@
 <script>
 export default {
   components: {
-    NewsMain: () => import('../components/NewsMain.vue'),
-    NewsAnother: () => import('../components/NewsAnother.vue'),
-    NewsExclusive: () => import('../components/NewsExclusive.vue')
-  }
-}
+    NewsMain: () => import("../components/NewsMain.vue"),
+    NewsAnother: () => import("../components/NewsAnother.vue"),
+    NewsExclusive: () => import("../components/NewsExclusive.vue"),
+  },
+};
 </script>
 
 
 <style lang="scss" scoped>
-.main{
-  &_section{
+.main {
+  &_section {
     display: grid;
     margin-top: 40px;
     grid-template-columns: 71% 28%;
     grid-gap: 2%;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .main {
+    &_section {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 </style>
