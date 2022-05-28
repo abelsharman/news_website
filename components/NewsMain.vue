@@ -1,0 +1,72 @@
+<template>
+    <div class="main_news">
+        <h2>Главные новости</h2>
+        <img :src="info.img" alt="">
+        <span class="main_news_tag" v-for="item in info.tags" :key="item" v-text="item"></span>
+        <h1 v-text="info.name"></h1>
+        <p v-text="info.from_date"></p>
+    </div>
+</template>
+
+
+<script>
+export default {
+    data(){
+        return {
+            info: {
+                img: require('../assets/images/test/main_news.svg'),
+                tags: ['#Политика', '#Мир'],
+                name: 'Россия отказалась участвовать в работе Совета Европы. Что это значит?',
+                from_date: 'неделю назад'
+            }
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.main_news{
+    h2{
+        font-family: 'Gilroy', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 40px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: #333333;
+    }
+    img{
+        width: 100%;
+        margin: 22px 0 12px 0;
+    }
+    &_tag{
+        font-family: 'Inter', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        margin-right: 8px;
+        color: #EF3124;
+    }
+    h1{
+        font-family: 'Gilroy', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 48px;
+        line-height: 59px;
+        color: #181818;
+        margin: 8px 0;
+    }
+    p{
+        font-family: 'Roboto', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: #333333;
+    }
+}
+</style>

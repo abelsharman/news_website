@@ -1,14 +1,18 @@
 <template>
   <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
+    <div class="error_page">
+      <h1 v-if="error.statusCode === 404">
+        <h2>404</h2>
+        <h3>Ошибка</h3>
+        <h4>Самая большая ошибка в жизни — это брать одну бутылку вина и считать, что хватит.</h4>
+      </h1>
+      <h1 v-else>
+        {{ otherError }}
+      </h1>
+      <NuxtLink to="/">
+        Назад
+      </NuxtLink>
+    </div>
   </v-app>
 </template>
 
@@ -37,8 +41,64 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 h1 {
   font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.error_page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10vw auto;
+  width: 50vw;
+  h2, h3, h4{
+    font-family: 'Proxima Nova', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20vw;
+    text-align: center;
+    color: #B3B3B3
+  }
+  h2{
+    line-height: 15vw;
+  }
+  h3{
+    font-size: 5vw;
+  }
+  h4{
+    font-size: 2vw;
+    line-height: 3vw;
+  }
+}
+@media (orientation: portrait) {
+  .error_page{
+    margin: 20vh auto;
+    width: 80vw;
+    h2, h3, h4{
+      font-family: 'Proxima Nova', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 30vw;
+      text-align: center;
+      color: #B3B3B3
+    }
+    h2{
+      line-height: 25vw;
+    }
+    h3{
+      margin-top: 3vw;
+      font-size: 7vw;
+    }
+    h4{
+      margin-top: 3vw;
+      font-size: 5vw;
+      line-height: 6vw;
+    }
+  }
 }
 </style>
