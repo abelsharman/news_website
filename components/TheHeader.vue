@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <img src="../assets/images/logo.svg" alt="" />
+    <img src="../assets/images/logo.svg" alt="" @click="goMain" />
     <div class="nav">
       <span
         v-for="(item, index) in list"
@@ -12,7 +12,18 @@
       ><v-icon color="error" @click="goSearch">mdi-magnify</v-icon></v-btn
     >
     <v-btn color="error" @click="goLogin">Войти</v-btn>
-    <v-btn class="error nav_mobile">Меню</v-btn>
+    <v-btn class="error nav_mobile" @click="drawer = true">Меню</v-btn>
+    <v-navigation-drawer v-model="drawer" absolute temporary right>
+      <v-list nav>
+        <v-list-item-group>
+          <v-list-item v-for="(item, index) in list" :key="index">
+            <v-list-item-title @click="tab = index">{{
+              item.text
+            }}</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
 
@@ -50,6 +61,8 @@ export default {
           value: "interview",
         },
       ],
+      drawer: false,
+      tab: null,
     };
   },
   methods: {
@@ -59,6 +72,9 @@ export default {
     goLogin() {
       this.$router.push("/Login");
     },
+    goMain() {
+        this.$router.push("/")
+    }
   },
 };
 </script>
