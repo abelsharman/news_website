@@ -14,7 +14,7 @@
       </h1>
     </v-row>
     <v-row>
-      <v-col lg="1">
+      <v-col cols="12" lg="1" sm="12" xs="12">
         <div class="article_buttons">
           <button>
             <svg
@@ -81,7 +81,7 @@
           </button>
         </div>
       </v-col>
-      <v-col>
+      <v-col xs="12" sm="12" lg="10">
         <div class="article_subtitle">
           <span>{{ article.date }}</span>
           <p>
@@ -266,6 +266,140 @@ export default {
       .date {
         font-size: 12px;
         color: #a3a3a3;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .article {
+    margin-top: 24px;
+    img {
+      position: absolute;
+      z-index: 0;
+      width: 100%;
+      height: 200px;
+    }
+    &_tags {
+      z-index: 1;
+      display: flex;
+      flex-direction: row;
+      margin-top: 33vw;
+      margin-left: 10px;
+      p {
+        background-color: #fff;
+        margin-right: 10px;
+        padding: 4px 8px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+    &_title {
+      font-family: "Gilroy", sans-serif;
+      z-index: 1;
+      margin-left: 10px;
+      width: 100%;
+      mark {
+        background-color: red;
+        color: #fff;
+        padding: 8px;
+        line-height: 24px;
+        font-weight: 600;
+        font-size: 24px;
+      }
+    }
+    &_subtitle {
+      span {
+        font-family: "Inter", sans-serif;
+        color: #828282;
+        font-weight: 500;
+        font-size: 12px;
+        margin-bottom: 16px;
+      }
+      p {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+    &_body {
+      margin-left: 10px;
+      font-size: 14px;
+      font-family: "Inter", sans-serif;
+    }
+    &_buttons {
+      width: 100%;
+      margin-top: 10px;
+      button {
+        margin-bottom: 16px;
+        transition: 0.3s ease-in-out;
+        height: 32px;
+        svg {
+          height: 32px;
+        }
+        &:hover {
+          fill: red;
+        }
+      }
+    }
+    &_author {
+      border-top: 1px solid red;
+      border-bottom: 1px solid red;
+      padding: 24px;
+      margin-left: 10px;
+      width: 100%;
+      margin-bottom: 40px;
+      &_avatar {
+        position: relative;
+        img {
+          width: 74px;
+          height: 74px;
+        }
+      }
+      &_name {
+        margin-left: 100px;
+        font-family: "Inter", sans-serif;
+        span {
+          font-size: 14px;
+          color: red;
+        }
+        p {
+          font-size: 24px;
+          font-weight: 600;
+        }
+      }
+    }
+    &_comments {
+      margin-left: 10px;
+      font-family: "Inter", sans-serif;
+      width: 100%;
+      h1 {
+        font-size: 18px;
+        color: #a3a3a3;
+        margin-bottom: 40px;
+        display: flex;
+        padding: 0 30%;
+      }
+      &_avatar {
+        position: relative;
+        img {
+          width: 74px;
+          height: 74px;
+        }
+      }
+      &_body {
+        margin-left: 100px;
+        .name {
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .body {
+          font-size: 18px;
+          font-weight: 600;
+        }
+        .date {
+          font-size: 12px;
+          color: #a3a3a3;
+        }
       }
     }
   }

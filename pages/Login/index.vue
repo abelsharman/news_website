@@ -16,7 +16,7 @@ export default {
     email: "",
     password: "",
   }),
-  created(){
+  created() {
     console.log(this.$auth.$state.loggedIn);
   },
   methods: {
@@ -26,13 +26,13 @@ export default {
         password: this.password,
       };
       await this.$auth
-      .loginWith("local", {
-        data: body
-      })
-      .then(res => {
-        this.$notify.success('Поздравляем! Вы успешно прошли регистрацию!')
-        this.$router.push('/')
-      });
+        .loginWith("local", {
+          data: body,
+        })
+        .then((res) => {
+          this.$notify.success("Поздравляем! Вы успешно вошли!");
+          this.$router.push("/");
+        });
     },
     goRegistration() {
       this.$router.push("/Registration");

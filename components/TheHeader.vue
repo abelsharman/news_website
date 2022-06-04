@@ -12,8 +12,12 @@
     <v-btn icon
       ><v-icon color="error" @click="goSearch">mdi-magnify</v-icon></v-btn
     >
-    <v-btn color="error" v-if="!$auth.$state.loggedIn" @click="goLogin">Войти</v-btn>
-    <v-btn color="error" v-else @click="logout">Выйти</v-btn>
+    <v-btn color="error" v-if="!$auth.$state.loggedIn" @click="goLogin"
+      >Войти</v-btn
+    >
+    <div v-else>
+      <v-btn color="error" @click="logout">Выйти</v-btn>
+    </div>
     <v-btn class="error nav_mobile" @click="drawer = true">Меню</v-btn>
     <v-navigation-drawer v-model="drawer" absolute temporary right>
       <v-list nav>
@@ -75,8 +79,13 @@ export default {
     };
   },
   methods: {
-    async logout(){
-      await this.$auth.logout()
+    check() {
+      this.$axios.$get("/api/user/auth").then((res) => {
+        console.log(res);
+      });
+    },
+    async logout() {
+      await this.$auth.logout();
     },
     goSearch() {
       this.$router.push("/Search");
@@ -90,6 +99,9 @@ export default {
     nav(link) {
       this.$router.push(link);
     },
+  },
+  mounted() {
+    this.check();
   },
 };
 </script>
