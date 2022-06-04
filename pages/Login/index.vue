@@ -2,14 +2,10 @@
   <div class="login">
     <div class="login_main">
       <h1>Войти</h1>
-      <input type="text" placeholder="Введите email" v-model="login.email" />
-      <input
-        type="password"
-        placeholder="Введите пароль"
-        v-model="login.password"
-      />
+      <input type="text" placeholder="Введите email" v-model="email" />
+      <input type="password" placeholder="Введите пароль" v-model="password" />
       <a href="#" class="registration" @click="goRegistration">Нет аккаунта?</a>
-      <v-btn class="error">Войти</v-btn>
+      <v-btn class="error" @click="userLogin">Войти</v-btn>
     </div>
   </div>
 </template>
@@ -17,13 +13,24 @@
 <script>
 export default {
   data: () => ({
-    login: {
-      email: "",
-      password: "",
-    },
+    email: "",
+    password: "",
   }),
   methods: {
-    userLogin() {},
+    async userLogin() {
+      const body = {
+        email: this.email,
+        password: this.password,
+      };
+      this.$axios.$post("/api/user/login", body).then((res) => {
+        console.log(res.token);
+        localStorage.setItem("token", res.token);
+        this.$router.push("/");
+        this.$axios.$get("/api/user/auth").then((res) => {
+          console.log(res);
+        });
+      });
+    },
     goRegistration() {
       this.$router.push("/Registration");
     },

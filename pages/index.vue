@@ -15,6 +15,16 @@ export default {
     NewsAnother: () => import("../components/NewsAnother.vue"),
     NewsExclusive: () => import("../components/NewsExclusive.vue"),
   },
+  methods: {
+    getStatus() {
+      this.$axios.get("/").then((res) => {
+        console.log(res);
+      });
+    },
+  },
+  mounted() {
+    this.getStatus();
+  },
 };
 </script>
 

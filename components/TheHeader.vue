@@ -6,6 +6,7 @@
         v-for="(item, index) in list"
         :key="index"
         v-text="item.text"
+        @click="nav(item.link)"
       ></span>
     </div>
     <v-btn icon
@@ -35,30 +36,37 @@ export default {
         {
           text: "Главная",
           value: "main",
+          link: "/",
         },
         {
           text: "Мир",
           value: "world",
+          link: "/",
         },
         {
           text: "Бизнес",
           value: "business",
+          link: "/",
         },
         {
           text: "Политика",
           value: "politology",
+          link: "/",
         },
         {
           text: "Истории",
           value: "history",
+          link: "/",
         },
         {
           text: "Подкасты",
           value: "podcasts",
+          link: "/",
         },
         {
           text: "Интервью",
           value: "interview",
+          link: "/",
         },
       ],
       drawer: false,
@@ -73,8 +81,11 @@ export default {
       this.$router.push("/Login");
     },
     goMain() {
-        this.$router.push("/")
-    }
+      this.$router.push("/");
+    },
+    nav(link) {
+      this.$router.push(link);
+    },
   },
 };
 </script>

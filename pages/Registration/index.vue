@@ -22,7 +22,7 @@
         placeholder="Введите пароль"
         v-model="registration.password"
       />
-      <v-btn class="error">Зарегистрироваться</v-btn>
+      <v-btn class="error" @click="createUser">Зарегистрироваться</v-btn>
     </div>
   </div>
 </template>
@@ -38,7 +38,13 @@ export default {
     },
   }),
   methods: {
-    userLogin() {},
+    createUser() {
+      this.$axios
+        .$post("/api/user/registration", this.registration)
+        .then((res) => {
+          console.log(res);
+        });
+    },
   },
 };
 </script>

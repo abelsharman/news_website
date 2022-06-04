@@ -9,6 +9,10 @@ export default {
   router: {
     mode: 'hash'
   },
+  axios: {
+    // baseURL: 'http://174.138.2.203/',
+    baseURL: 'http://localhost:3030/', 
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -49,10 +53,36 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
+  auth: {
+    strategies: {
+      local: {
+        scheme: "local",
+        token: {
+          property: "access",
+          global: true,
+          type: "JWT",
+        },
+        user: {
+          property: "",
+          autoFetch: true,
+        },
+        refreshToken: {
+          property: "refresh",
+          data: "refresh",
+          maxAge: 60 * 60 * 24 * 15,
+        },
+        endpoints: {
+          login: { url: "/api/user/login", method: "post" },
+          user: { url: "/api/user/auth", method: "get", propertyName: "" },
+          logout: false,
+        },
+      },
+    }
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
