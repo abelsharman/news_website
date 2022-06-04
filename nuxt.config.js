@@ -11,7 +11,7 @@ export default {
   },
   axios: {
     // baseURL: 'http://174.138.2.203/',
-    baseURL: 'http://localhost:3030/', 
+    baseURL: 'http://174.138.2.203/', 
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -38,6 +38,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/notification',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -61,7 +62,7 @@ export default {
       local: {
         scheme: "local",
         token: {
-          property: "access",
+          property: "token",
           global: true,
           type: "JWT",
         },

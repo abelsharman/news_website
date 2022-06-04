@@ -6,6 +6,7 @@
         <Nuxt />
       </v-container>
       <TheFooter />
+      <TheNotification />
     </v-main>
   </v-app>
 </template>
@@ -14,7 +15,8 @@
 export default {
   components: {
     TheHeader: () => import('../components/TheHeader.vue'),
-    TheFooter: () => import('../components/TheFooter.vue')
+    TheFooter: () => import('../components/TheFooter.vue'),
+    TheNotification: () => import('../components/TheNotification'),
   },
   data () {
     return {

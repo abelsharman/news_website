@@ -12,7 +12,8 @@
     <v-btn icon
       ><v-icon color="error" @click="goSearch">mdi-magnify</v-icon></v-btn
     >
-    <v-btn color="error" @click="goLogin">Войти</v-btn>
+    <v-btn color="error" v-if="!$auth.$state.loggedIn" @click="goLogin">Войти</v-btn>
+    <v-btn color="error" v-else @click="logout">Выйти</v-btn>
     <v-btn class="error nav_mobile" @click="drawer = true">Меню</v-btn>
     <v-navigation-drawer v-model="drawer" absolute temporary right>
       <v-list nav>
@@ -74,6 +75,9 @@ export default {
     };
   },
   methods: {
+    async logout(){
+      await this.$auth.logout()
+    },
     goSearch() {
       this.$router.push("/Search");
     },

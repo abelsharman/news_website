@@ -16,19 +16,22 @@ export default {
     email: "",
     password: "",
   }),
+  created(){
+    console.log(this.$auth.$state.loggedIn);
+  },
   methods: {
     async userLogin() {
       const body = {
         email: this.email,
         password: this.password,
       };
-      this.$axios.$post("/api/user/login", body).then((res) => {
-        console.log(res.token);
-        localStorage.setItem("token", res.token);
-        this.$router.push("/");
-        this.$axios.$get("/api/user/auth").then((res) => {
-          console.log(res);
-        });
+      await this.$auth
+      .loginWith("local", {
+        data: body
+      })
+      .then(res => {
+        this.$notify.success('Поздравляем! Вы успешно прошли регистрацию!')
+        this.$router.push('/')
       });
     },
     goRegistration() {
