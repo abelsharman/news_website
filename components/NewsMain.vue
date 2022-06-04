@@ -3,7 +3,7 @@
     <h2>Главные новости</h2>
     <img :src="`https://kapibackend.abelsharman.kz/${articles.img}`" alt="" />
     <span class="main_news_tag"> #{{ articles.tag }} </span>
-    <h1 v-text="articles.title"></h1>
+    <h1 v-text="articles.title" @click="goPage(articles.id)"></h1>
     <p v-text="articles.date"></p>
   </div>
 </template>
@@ -29,6 +29,9 @@ export default {
         this.articles = res[0];
         console.log(this.articles);
       });
+    },
+    goPage(id) {
+      this.$router.push(`/News/${id}`);
     },
   },
   mounted() {

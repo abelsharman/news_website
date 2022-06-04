@@ -3,18 +3,14 @@
     <v-row>
       <img
         class="artilce_img"
-        src="@/assets/images/test/main_news.svg"
+        :src="`https://kapibackend.abelsharman.kz/${article.img}`"
         alt=""
       />
       <div class="article_tags">
-        <p>#Политика</p>
-        <p>#Мир</p>
+        <p>#{{ article.tag }}</p>
       </div>
       <h1 class="article_title">
-        <mark
-          >Токаев выразил соболезнования Си Цзиньпину и всему китайскому
-          народу</mark
-        >
+        <mark>{{ article.title }}</mark>
       </h1>
     </v-row>
     <v-row>
@@ -87,54 +83,66 @@
       </v-col>
       <v-col>
         <div class="article_subtitle">
-          <span>29 сентября 2020, 17:15</span>
+          <span>{{ article.date }}</span>
           <p>
-            Глава государства Касым-Жомарт Токаев с глубоким прискорбием
-            воспринял сообщение о многочисленных жертвах в результате крушения
-            пассажирского самолета авиакомпании China Eastern Airlines в
-            Гуанси-Чжуанском автономном районе Китая.
+            {{ article.subtitle }}
           </p>
         </div>
         <div class="article_body">
           <p>
-            "Разделяя горечь утраты, в этот тяжелый момент от имени всех
-            казахстанцев и от себя лично выражаю искренние соболезнования Вам,
-            родным и близким погибших, а также всему китайскому народу", -
-            говорится в сообщении.
-          </p>
-          <p>
-            Напомним, пассажирский Boeing 737 разбился в уезде Тэн городского
-            округа Учжоу в Гуанси-Чжуанском автономном районе на юге Китая. На
-            его борту находились 133 человека. На месте крушения работают
-            спасатели, однако официальная информация о погибших и пострадавших
-            пока не публиковалась.
-          </p>
-          <p>
-            Данная авиакатастрофа стала крупнейшей в Китае за 11,5 лет, до этого
-            момента гражданская авиация КНР на протяжении 138 месяцев подряд
-            осуществляла безопасные полеты, отметило агентство РИА Новости со
-            ссылкой на китайское издание "Пэнпай". По данным издания,
-            гражданская авиация Китая всегда занимала лидирующие позиции в мире
-            по управлению безопасностью полетов, и по состоянию на 19 февраля
-            этого года осуществляла безопасные полеты на протяжении более 100
-            миллионов часов и 137 месяцев подряд.
+            {{ article.body }}
           </p>
         </div>
       </v-col>
     </v-row>
     <v-row>
       <div class="article_author">
-        <div class="article_author_avatar"></div>
-        <div class="article_author_name">
-          <p></p>
+        <div class="article_author_avatar">
+          <img src="@/assets/images/user.png" alt="#" />
         </div>
+        <div class="article_author_name">
+          <span>Автор</span>
+          <p>{{ article.author }}</p>
+        </div>
+      </div>
+    </v-row>
+    <v-row>
+      <div class="article_comments" v-if="!article.comments">
+        <div class="article_comments_avatar">
+          <img src="@/assets/images/user.png" alt="#" />
+        </div>
+        <div class="article_comments_body">
+          <p class="name">Ааа Ааа</p>
+          <p class="body">123123</p>
+          <p class="date">121212</p>
+        </div>
+      </div>
+      <div class="article_comments" v-if="article.comments">
+        <h1>Комментариев пока нет.</h1>
       </div>
     </v-row>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      article: [],
+    };
+  },
+  methods: {
+    getArticle() {
+      this.$axios.$get(`/api/news/${this.$route.params.id}`).then((res) => {
+        this.article = res;
+        console.log(this.article);
+      });
+    },
+  },
+  mounted() {
+    this.getArticle();
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -196,6 +204,65 @@ export default {};
       transition: 0.3s ease-in-out;
       &:hover {
         fill: red;
+      }
+    }
+  }
+  &_author {
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    padding: 24px;
+    margin-left: 100px;
+    width: 100%;
+    margin-bottom: 40px;
+    &_avatar {
+      position: relative;
+      img {
+        width: 74px;
+      }
+    }
+    &_name {
+      margin-left: 100px;
+      font-family: "Inter", sans-serif;
+      span {
+        font-size: 14px;
+        color: red;
+      }
+      p {
+        font-size: 24px;
+        font-weight: 600;
+      }
+    }
+  }
+  &_comments {
+    margin-left: 124px;
+    font-family: "Inter", sans-serif;
+    width: 100%;
+    h1 {
+      font-size: 24px;
+      color: #a3a3a3;
+      margin-bottom: 40px;
+      display: flex;
+      padding: 0 30%;
+    }
+    &_avatar {
+      position: relative;
+      img {
+        width: 74px;
+      }
+    }
+    &_body {
+      margin-left: 100px;
+      .name {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .body {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .date {
+        font-size: 12px;
+        color: #a3a3a3;
       }
     }
   }
