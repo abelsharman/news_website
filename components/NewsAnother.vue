@@ -3,7 +3,7 @@
     <h2>Другие новости</h2>
     <div class="another_section">
       <div class="another_section_item" v-for="item in list" :key="item.id">
-        <h3 v-text="item.type"></h3>
+        <h3 v-text="item.tag"></h3>
         <h1 @click="goPage(item.id)" v-text="item.title"></h1>
         <p v-text="item.from_date"></p>
       </div>
@@ -16,41 +16,22 @@
 export default {
   data() {
     return {
-      list: [
-        {
-          id: 1,
-          type: "Мир",
-          title: "Казахстан направит гуманитарную помощь Украине двумя рейсами",
-          from_date: "10 марта, 15:30",
-        },
-        {
-          id: 2,
-          type: "Политика",
-          title:
-            "Габриэль Борич приведен к присяге в качестве президента Чили в резком политическом сдвиге",
-          from_date: "10 марта, 15:30",
-        },
-        {
-          id: 3,
-          type: "Бизнес",
-          title:
-            "Роман Абрамович попал под санкции в Великобритании. Теперь он не сможет продать «Челси»",
-          from_date: "10 марта, 15:30",
-        },
-        {
-          id: 4,
-          type: "Мир",
-          title:
-            "Города США теряют 36 миллионов деревьев в год. Вот почему это важно и как вы можете это остановить",
-          from_date: "10 марта, 15:30",
-        },
-      ],
+      list: [],
+      items: [],
     };
   },
   methods: {
     goPage(id) {
       this.$router.push(`/News/${id}`);
     },
+    getArticles() {
+      this.$axios.$get("/api/news/").then((res) => {
+        this.list = res.slice(1, 7);
+      });
+    },
+  },
+  mounted() {
+    this.getArticles();
   },
 };
 </script>
@@ -60,7 +41,7 @@ export default {
   h2 {
     font-family: "Gilroy", sans-serif;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 30px;
     line-height: 40px;
     display: flex;

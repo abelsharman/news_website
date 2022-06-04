@@ -8,15 +8,11 @@
         :key="item.id"
       >
         <!-- <div :style="[ item.img ? { 'background-image': item.img } : {} ]"></div> -->
-        <img :src="item.img" alt="" />
-        <span
-          v-for="subitem in item.tags"
-          :key="subitem"
-          v-text="subitem"
-        ></span>
-        <h3 @click="goPage(item.id)" v-text="item.name"></h3>
-        <h4 v-text="item.description"></h4>
-        <p v-text="item.from_date"></p>
+        <img :src="`https://kapibackend.abelsharman.kz/${item.img}`" alt="" />
+        <span>#{{ item.tag }}</span>
+        <h3 @click="goPage(item.id)" v-text="item.title"></h3>
+        <h4 v-text="item.subtitle"></h4>
+        <p v-text="item.date"></p>
       </div>
     </div>
     <div class="exclusive_second">
@@ -26,15 +22,11 @@
         :key="item.id"
       >
         <!-- <div :style="[ item.img ? { 'background-image': item.img } : {} ]"></div> -->
-        <img :src="item.img" alt="" />
-        <span
-          v-for="subitem in item.tags"
-          :key="subitem"
-          v-text="subitem"
-        ></span>
-        <h3 @click="goPage(item.id)" v-text="item.name"></h3>
-        <h4 v-text="item.description"></h4>
-        <p v-text="item.from_date"></p>
+        <img :src="`https://kapibackend.abelsharman.kz/${item.img}`" alt="" />
+        <span>#{{ item.tag }}</span>
+        <h3 @click="goPage(item.id)" v-text="item.title"></h3>
+        <h4 v-text="item.subtitle"></h4>
+        <p v-text="item.date"></p>
       </div>
     </div>
   </div>
@@ -45,67 +37,21 @@
 export default {
   data() {
     return {
-      list: [
-        {
-          id: 1,
-          tags: ["#Политика", "#Мир"],
-          name: "Конец эпохи в России: санкции действуют, а западные компании бегут",
-          description:
-            "McDonald's приостанавливает работу в России. Вот почему это важно...",
-          from_date: "12 марта, 13:53",
-          img: require("../assets/images/test/main_news.svg"),
-        },
-        {
-          id: 2,
-          tags: ["#Политика"],
-          name: "Задержан Кайрат Сатыбалдыулы",
-          description: "Кайрат Сатыбалдыулы задержан Антикоррупционной службой",
-          from_date: "12 марта, 13:53",
-          img: require("../assets/images/test/main_news.svg"),
-        },
-        {
-          id: 3,
-          tags: ["#Политика"],
-          name: '"Кажется, сейчас проснемся и все закончится". В Казахстан едут жители Украины и России',
-          description:
-            "В связи с последними событиями, происходящими в Украине, в мегаполисы Казахстана, в частности Нур-Султан и Алматы, приезжают жители Украины и России.",
-          from_date: "12 марта, 13:53",
-          img: require("../assets/images/test/main_news.svg"),
-        },
-        {
-          id: 4,
-          tags: ["#Политика"],
-          name: '"Кажется, сейчас проснемся и все закончится". В Казахстан едут жители Украины и России',
-          description:
-            "В связи с последними событиями, происходящими в Украине, в мегаполисы Казахстана, в частности Нур-Султан и Алматы, приезжают жители Украины и России.",
-          from_date: "12 марта, 13:53",
-          img: require("../assets/images/test/main_news.svg"),
-        },
-        {
-          id: 5,
-          tags: ["#Политика"],
-          name: '"Кажется, сейчас проснемся и все закончится". В Казахстан едут жители Украины и России',
-          description:
-            "В связи с последними событиями, происходящими в Украине, в мегаполисы Казахстана, в частности Нур-Султан и Алматы, приезжают жители Украины и России.",
-          from_date: "12 марта, 13:53",
-          img: require("../assets/images/test/main_news.svg"),
-        },
-        {
-          id: 6,
-          tags: ["#Политика"],
-          name: '"Кажется, сейчас проснемся и все закончится". В Казахстан едут жители Украины и России',
-          description:
-            "В связи с последними событиями, происходящими в Украине, в мегаполисы Казахстана, в частности Нур-Султан и Алматы, приезжают жители Украины и России.",
-          from_date: "12 марта, 13:53",
-          img: require("../assets/images/test/main_news.svg"),
-        },
-      ],
+      list: [],
     };
   },
   methods: {
+    getArticles() {
+      this.$axios.$get("/api/news/").then((res) => {
+        this.list = res;
+      });
+    },
     goPage(id) {
       this.$router.push(`/News/${id}`);
     },
+  },
+  mounted() {
+    this.getArticles();
   },
 };
 </script>

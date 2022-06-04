@@ -1,15 +1,10 @@
 <template>
   <div class="main_news">
     <h2>Главные новости</h2>
-    <img :src="info.img" alt="" />
-    <span
-      class="main_news_tag"
-      v-for="item in info.tags"
-      :key="item"
-      v-text="item"
-    ></span>
-    <h1 v-text="info.name"></h1>
-    <p v-text="info.from_date"></p>
+    <img :src="`https://kapibackend.abelsharman.kz/${articles.img}`" alt="" />
+    <span class="main_news_tag"> #{{ articles.tag }} </span>
+    <h1 v-text="articles.title"></h1>
+    <p v-text="articles.date"></p>
   </div>
 </template>
 
@@ -24,7 +19,20 @@ export default {
         name: "Россия отказалась участвовать в работе Совета Европы. Что это значит?",
         from_date: "неделю назад",
       },
+      articles: [],
     };
+  },
+  methods: {
+    getArticles() {
+      this.$axios.$get("/api/news").then((res) => {
+        console.log(res);
+        this.articles = res[0];
+        console.log(this.articles);
+      });
+    },
+  },
+  mounted() {
+    this.getArticles();
   },
 };
 </script>

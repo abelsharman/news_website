@@ -55,8 +55,8 @@ export default {
           link: "/",
         },
         {
-          text: "Истории",
-          value: "history",
+          text: "Спорт",
+          value: "sport",
           link: "/",
         },
         {
