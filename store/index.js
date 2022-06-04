@@ -7,7 +7,6 @@ export const mutations = {
         state.is_mobile = payload
     },
     ADD_NOTIFICATION(state, payload){
-        console.log(payload);
         state.notifications.push(payload)
     },
     DELETE_NOTIFICATION(state, payload){

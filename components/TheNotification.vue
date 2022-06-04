@@ -58,14 +58,17 @@ export default {
     }
 }
 .notifications{
-    position: absolute;
+    position: fixed;
     bottom: 20px;
-    width: 100vw;
+    width: 86vw;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     transition: 0.5s all ease;
+    p{
+        margin: 5px 0 !important;
+    }
     div{
         position: relative;
         top: 0px;
