@@ -152,6 +152,7 @@ export default {
     position: absolute;
     z-index: 0;
     width: 100%;
+    height: 600px;
   }
   &_tags {
     z-index: 1;
@@ -218,6 +219,7 @@ export default {
       position: relative;
       img {
         width: 74px;
+        height: 74px;
       }
     }
     &_name {
@@ -248,6 +250,7 @@ export default {
       position: relative;
       img {
         width: 74px;
+        height: 74px;
       }
     }
     &_body {

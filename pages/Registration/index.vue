@@ -42,9 +42,10 @@ export default {
       this.$axios
         .$post("/api/user/registration", this.registration)
         .then((res) => {
-          if(res.token) {
-            this.$notify.success('Поздравляем! Вы успешно прошли регистрацию!')
-          } 
+          if (res.token) {
+            this.$notify.success("Поздравляем! Вы успешно прошли регистрацию!");
+            this.$router.push("/Login");
+          }
         });
     },
   },
