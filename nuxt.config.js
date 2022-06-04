@@ -11,7 +11,7 @@ export default {
   },
   axios: {
     // baseURL: 'http://174.138.2.203/',
-    baseURL: 'http://174.138.2.203/', 
+    baseURL: 'https://kapibackend.abelsharman.kz/', 
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
