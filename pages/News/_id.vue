@@ -106,8 +106,8 @@
         </div>
       </div>
     </v-row>
-    <v-row>
-      <div class="article_comments" v-if="!article.comments">
+    <v-row v-if="comments.length > 0">
+      <div class="article_comments">
         <div class="article_comments_avatar">
           <img src="@/assets/images/user.png" alt="#" />
         </div>
@@ -117,17 +117,21 @@
           <p class="date">121212</p>
         </div>
       </div>
-      <div class="article_comments" v-if="article.comments">
+    </v-row>
+    <v-row v-if="comments.length == 0">
+      <div class="article_comments">
         <h1>Комментариев пока нет.</h1>
-        <div class="article_comments_send" v-if="$auth.$state.loggedIn">
-          <v-textarea
-            outlined
-            name="input-3-4"
-            label="Оставьте комментарий"
-            v-model="comment"
-          ></v-textarea>
-          <v-btn class="error"><v-icon>mdi-send</v-icon></v-btn>
-        </div>
+      </div>
+    </v-row>
+    <v-row>
+      <div class="article_comments_send" v-if="$auth.$state.loggedIn">
+        <v-textarea
+          outlined
+          name="input-3-4"
+          label="Оставьте комментарий"
+          v-model="comment"
+        ></v-textarea>
+        <v-btn class="error"><v-icon>mdi-send</v-icon></v-btn>
       </div>
     </v-row>
   </div>
@@ -142,6 +146,7 @@ export default {
       article: [],
       date: [],
       comment: "",
+      comments: "",
       user: "",
     };
   },
@@ -149,6 +154,7 @@ export default {
     getArticle() {
       this.$axios.$get(`/api/news/${this.$route.params.id}`).then((res) => {
         this.article = res;
+        this.comments = res.comments;
         console.log(this.article);
         this.date = this.article.date.slice(0, 10);
       });
@@ -298,6 +304,10 @@ export default {
         color: #a3a3a3;
       }
     }
+  }
+  &_commnets_send {
+    display: flex;
+    width: 100vw;
   }
 }
 

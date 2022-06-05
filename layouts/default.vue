@@ -37,10 +37,10 @@ export default {
 }
 @media all and (max-width: 768px) {
   #app {
-    width: 100vw;
+    width: 90vw;
     max-width: 100%;
-    overflow-x: hidden;
     margin: 0 auto;
+    padding: 0;
   }
 }
 </style>
