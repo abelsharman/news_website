@@ -194,7 +194,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.getComments();
+          this.getArticle();
         });
     },
     putFake() {
