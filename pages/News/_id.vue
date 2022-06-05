@@ -221,7 +221,7 @@ export default {
       this.disabled = true;
       this.timeout = setTimeout(() => {
         this.disabled = false;
-      }, 50000);
+      }, 900000);
 
       this.putFake();
     },
