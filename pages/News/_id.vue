@@ -115,7 +115,7 @@
         <div class="article_comments_body">
           <p class="name">{{ item.user.name }}</p>
           <p class="body">{{ item.body }}</p>
-          <p class="date">{{ item.createdAt }}</p>
+          <p class="date">{{ item.createdAt.slice(0, 10) }}</p>
         </div>
       </div>
     </v-row>
