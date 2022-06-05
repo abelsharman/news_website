@@ -17,7 +17,7 @@
       <v-col cols="12" lg="1" sm="12" xs="12">
         <div class="article_buttons">
           <div class="article_buttons_likes" v-if="$auth.$state.loggedIn">
-            <button @click="putFake">
+            <button @click="delay" :disabled="disabled">
               <svg
                 width="45"
                 height="45"
@@ -162,6 +162,8 @@ export default {
       commentId: "",
       user: "",
       fake: "",
+      disabled: "false",
+      timeout: null,
     };
   },
   methods: {
@@ -214,6 +216,16 @@ export default {
         console.log(res);
         this.$router.push("/");
       });
+    },
+    delay() {
+      this.disabled = true;
+
+      // Re-enable after 5 seconds
+      this.timeout = setTimeout(() => {
+        this.disabled = false;
+      }, 50000);
+
+      this.putFake();
     },
   },
   mounted() {
