@@ -16,26 +16,28 @@
     <v-row>
       <v-col cols="12" lg="1" sm="12" xs="12">
         <div class="article_buttons">
-          <button>
-            <svg
-              width="45"
-              height="45"
-              viewBox="0 0 45 45"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clip-path="url(#clip0_339_20)">
-                <path
-                  d="M33.0908 0.659252C32.8822 0.449906 32.6342 0.283884 32.3612 0.170742C32.0882 0.0576003 31.7955 -0.00042626 31.5 2.35727e-06H13.5C13.2045 -0.00042626 12.9118 0.0576003 12.6388 0.170742C12.3658 0.283884 12.1178 0.449906 11.9093 0.659252L0.659252 11.9093C0.449906 12.1178 0.283884 12.3658 0.170742 12.6388C0.0576003 12.9118 -0.00042626 13.2045 2.35727e-06 13.5V31.5C2.35727e-06 32.0985 0.236252 32.67 0.659252 33.0908L11.9093 44.3408C12.1178 44.5501 12.3658 44.7161 12.6388 44.8293C12.9118 44.9424 13.2045 45.0004 13.5 45H31.5C32.0985 45 32.67 44.7638 33.0908 44.3408L44.3408 33.0908C44.5501 32.8822 44.7161 32.6342 44.8293 32.3612C44.9424 32.0882 45.0004 31.7955 45 31.5V13.5C45.0004 13.2045 44.9424 12.9118 44.8293 12.6388C44.7161 12.3658 44.5501 12.1178 44.3408 11.9093L33.0908 0.659252ZM24.75 33.75H20.25V29.25H24.75V33.75ZM24.75 24.75H20.25V11.25H24.75V24.75Z"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_339_20">
-                  <rect width="45" height="45" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-          </button>
-          <span>{{ article.likes }}</span>
+          <div class="article_buttons_likes" v-if="$auth.$state.loggedIn">
+            <button @click="putFake">
+              <svg
+                width="45"
+                height="45"
+                viewBox="0 0 45 45"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_339_20)">
+                  <path
+                    d="M33.0908 0.659252C32.8822 0.449906 32.6342 0.283884 32.3612 0.170742C32.0882 0.0576003 31.7955 -0.00042626 31.5 2.35727e-06H13.5C13.2045 -0.00042626 12.9118 0.0576003 12.6388 0.170742C12.3658 0.283884 12.1178 0.449906 11.9093 0.659252L0.659252 11.9093C0.449906 12.1178 0.283884 12.3658 0.170742 12.6388C0.0576003 12.9118 -0.00042626 13.2045 2.35727e-06 13.5V31.5C2.35727e-06 32.0985 0.236252 32.67 0.659252 33.0908L11.9093 44.3408C12.1178 44.5501 12.3658 44.7161 12.6388 44.8293C12.9118 44.9424 13.2045 45.0004 13.5 45H31.5C32.0985 45 32.67 44.7638 33.0908 44.3408L44.3408 33.0908C44.5501 32.8822 44.7161 32.6342 44.8293 32.3612C44.9424 32.0882 45.0004 31.7955 45 31.5V13.5C45.0004 13.2045 44.9424 12.9118 44.8293 12.6388C44.7161 12.3658 44.5501 12.1178 44.3408 11.9093L33.0908 0.659252ZM24.75 33.75H20.25V29.25H24.75V33.75ZM24.75 24.75H20.25V11.25H24.75V24.75Z"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_339_20">
+                    <rect width="45" height="45" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </button>
+            <span>{{ article.likes }}</span>
+          </div>
           <button>
             <svg
               width="45"
@@ -107,19 +109,23 @@
         </div>
       </div>
     </v-row>
-    <v-row v-if="comments.length > 0">
-      <div class="article_comments" v-for="item in comments" :key="item.id">
+    <v-row v-if="article.comments">
+      <div
+        class="article_comments"
+        v-for="item in article.comments"
+        :key="item.id"
+      >
         <div class="article_comments_avatar">
           <img src="@/assets/images/user.png" alt="#" />
         </div>
         <div class="article_comments_body">
-          <p class="name">{{ item.user.name }}</p>
+          <p class="name">{{ item.userId }}</p>
           <p class="body">{{ item.body }}</p>
-          <p class="date">{{ item.createdAt.slice(0, 10) }}</p>
+          <p class="date">{{ item.createdAt }}</p>
         </div>
       </div>
     </v-row>
-    <v-row v-if="comments.length == 0">
+    <v-row v-if="!article.comments">
       <div class="article_comments">
         <h1>Комментариев пока нет.</h1>
       </div>
@@ -153,6 +159,7 @@ export default {
       date: [],
       comment: "",
       comments: "",
+      commentId: "",
       user: "",
     };
   },
@@ -162,6 +169,7 @@ export default {
         this.article = res;
         console.log(this.article);
         this.date = this.article.date.slice(0, 10);
+        this.commentId = res.id;
       });
     },
     getMe() {
@@ -173,9 +181,8 @@ export default {
       }
     },
     getComments() {
-      this.$axios.$get("/api/comments/").then((res) => {
+      this.$axios.$get(`/api/comments/`).then((res) => {
         console.log(res, "res");
-        this.comments = res;
       });
     },
     postComment() {
@@ -187,8 +194,14 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.getArticle();
+          this.getComments();
         });
+    },
+    putFake() {
+      this.$post.put(`/api/news/${this.article.id}`).then((res) => {
+        console.log(res);
+        this.getArticle();
+      });
     },
   },
   mounted() {
@@ -256,11 +269,15 @@ export default {
     margin-top: 16px;
     display: flex;
     flex-direction: column;
-    span {
-      text-align: center;
-      padding-top: 0;
-      margin-top: -16px;
-      margin-bottom: 20px;
+    &_likes {
+      display: flex;
+      flex-direction: column;
+      span {
+        text-align: center;
+        padding-top: 0;
+        margin-top: -16px;
+        margin-bottom: 20px;
+      }
     }
     button {
       margin-bottom: 16px;
