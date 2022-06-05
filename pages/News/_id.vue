@@ -161,6 +161,7 @@ export default {
       comments: "",
       commentId: "",
       user: "",
+      fake: "",
     };
   },
   methods: {
@@ -170,6 +171,7 @@ export default {
         console.log(this.article);
         this.date = this.article.date.slice(0, 10);
         this.commentId = res.id;
+        this.fake = res.likes;
       });
     },
     getMe() {
@@ -194,13 +196,23 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.getArticle();
+          location.reload();
         });
     },
     putFake() {
-      this.$post.put(`/api/news/${this.article.id}`).then((res) => {
+      this.$axios
+        .$put(`/api/news/likes/${this.article.id}`, {
+          likes: this.article.likes + 1,
+        })
+        .then((res) => {
+          console.log(res);
+          this.getArticle();
+        });
+    },
+    deleteFake() {
+      this.$axios.$delete(`/api/news/${this.article.id}`).then((res) => {
         console.log(res);
-        this.getArticle();
+        this.$router.push("/");
       });
     },
   },
@@ -208,6 +220,13 @@ export default {
     this.getArticle();
     this.getMe();
     this.getComments();
+  },
+  watch: {
+    fake() {
+      if (this.fake == 5) {
+        this.deleteFake();
+      }
+    },
   },
 };
 </script>
