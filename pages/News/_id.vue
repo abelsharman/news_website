@@ -35,6 +35,7 @@
               </defs>
             </svg>
           </button>
+          <span>{{ article.likes }}</span>
           <button>
             <svg
               width="45"
@@ -107,14 +108,14 @@
       </div>
     </v-row>
     <v-row v-if="comments.length > 0">
-      <div class="article_comments">
+      <div class="article_comments" v-for="item in comments" :key="item.id">
         <div class="article_comments_avatar">
           <img src="@/assets/images/user.png" alt="#" />
         </div>
         <div class="article_comments_body">
-          <p class="name">Ааа Ааа</p>
-          <p class="body">123123</p>
-          <p class="date">121212</p>
+          <p class="name">{{ item.user.name }}</p>
+          <p class="body">{{ item.body }}</p>
+          <p class="date">{{ item.createdAt }}</p>
         </div>
       </div>
     </v-row>
@@ -124,15 +125,20 @@
       </div>
     </v-row>
     <v-row>
-      <div class="article_comments_send" v-if="$auth.$state.loggedIn">
-        <v-textarea
-          outlined
-          name="input-3-4"
-          label="Оставьте комментарий"
-          v-model="comment"
-        ></v-textarea>
-        <v-btn class="error"><v-icon>mdi-send</v-icon></v-btn>
-      </div>
+      <v-col cols="12" lg="12" xs="12">
+        <div class="article_comments_send" v-if="$auth.$state.loggedIn">
+          <v-textarea
+            outlined
+            width="100%"
+            name="input-8-4"
+            label="Оставьте комментарий"
+            v-model="comment"
+          ></v-textarea>
+          <v-btn class="error" @click="postComment"
+            ><v-icon>mdi-send</v-icon></v-btn
+          >
+        </div>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -154,7 +160,6 @@ export default {
     getArticle() {
       this.$axios.$get(`/api/news/${this.$route.params.id}`).then((res) => {
         this.article = res;
-        this.comments = res.comments;
         console.log(this.article);
         this.date = this.article.date.slice(0, 10);
       });
@@ -169,8 +174,21 @@ export default {
     },
     getComments() {
       this.$axios.$get("/api/comments/").then((res) => {
-        console.log(res);
+        console.log(res, "res");
+        this.comments = res;
       });
+    },
+    postComment() {
+      this.$axios
+        .$post("/api/comments/", {
+          body: this.comment,
+          articleId: this.article.id,
+          userId: this.user.id,
+        })
+        .then((res) => {
+          console.log(res);
+          this.getArticle();
+        });
     },
   },
   mounted() {
@@ -236,6 +254,14 @@ export default {
   }
   &_buttons {
     margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    span {
+      text-align: center;
+      padding-top: 0;
+      margin-top: -16px;
+      margin-bottom: 20px;
+    }
     button {
       margin-bottom: 16px;
       transition: 0.3s ease-in-out;
@@ -307,7 +333,7 @@ export default {
   }
   &_commnets_send {
     display: flex;
-    width: 100vw;
+    margin-left: 10px;
   }
 }
 
@@ -369,6 +395,13 @@ export default {
     &_buttons {
       width: 100%;
       margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+      span {
+        text-align: center;
+        padding-top: 20px;
+        margin-right: 20px;
+      }
       button {
         margin-bottom: 16px;
         transition: 0.3s ease-in-out;
