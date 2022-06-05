@@ -162,7 +162,7 @@ export default {
       commentId: "",
       user: "",
       fake: "",
-      disabled: "false",
+      disabled: false,
       timeout: null,
     };
   },
@@ -219,8 +219,6 @@ export default {
     },
     delay() {
       this.disabled = true;
-
-      // Re-enable after 5 seconds
       this.timeout = setTimeout(() => {
         this.disabled = false;
       }, 50000);
@@ -310,11 +308,15 @@ export default {
         margin-bottom: 20px;
       }
     }
+
     button {
       margin-bottom: 16px;
       transition: 0.3s ease-in-out;
       &:hover {
         fill: red;
+      }
+      &:disabled {
+        fill: #828282;
       }
     }
   }
