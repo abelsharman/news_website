@@ -1,5 +1,5 @@
 <template>
-  <div class="world">
+  <div class="world" v-if="articles">
     <h2>Новости Политики</h2>
     <div v-for="item in articles" :key="item.id" style="margin-bottom: 40px">
       <img :src="`https://kapibackend.abelsharman.kz/${item.img}`" alt="" />
@@ -7,6 +7,10 @@
       <h1 v-text="item.title" @click="goPage(item.id)"></h1>
       <p>{{ item.subtitle }}</p>
     </div>
+  </div>
+  <div class="world" v-else>
+    <h2>Новости Политики</h2>
+    <h1 class="not_found">Новостей пока нет</h1>
   </div>
 </template>
 
@@ -40,6 +44,15 @@ export default {
 <style lang="scss" scoped>
 .world {
   margin-top: 40px;
+  .not_found {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #a3a3a3;
+    margin-bottom: 200px;
+  }
   h2 {
     font-family: "Gilroy", sans-serif;
     font-style: normal;
