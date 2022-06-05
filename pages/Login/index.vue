@@ -38,6 +38,7 @@ export default {
       this.$router.push("/Registration");
     },
   },
+  mounted() {},
 };
 </script>
 
@@ -78,6 +79,7 @@ export default {
 
 @media all and (max-width: 768px) {
   .login {
+    overflow-x: hidden;
     margin-top: 30px;
     margin-bottom: 40px;
     &_main {

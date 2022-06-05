@@ -134,6 +134,8 @@
 </template>
 
 <script>
+import jwt_decode from "jwt-decode";
+
 export default {
   data() {
     return {
@@ -152,13 +154,23 @@ export default {
       });
     },
     getMe() {
-      // this.user = jwt_decode(this.$auth.user);
-      // console.log(this.user);
+      if (this.$auth.$state.loggedIn) {
+        this.user = jwt_decode(this.$auth.user.token);
+        console.log(this.user);
+      } else {
+        return null;
+      }
+    },
+    getComments() {
+      this.$axios.$get("/api/comments/").then((res) => {
+        console.log(res);
+      });
     },
   },
   mounted() {
     this.getArticle();
     this.getMe();
+    this.getComments();
   },
 };
 </script>

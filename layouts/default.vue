@@ -14,25 +14,33 @@
 <script>
 export default {
   components: {
-    TheHeader: () => import('../components/TheHeader.vue'),
-    TheFooter: () => import('../components/TheFooter.vue'),
-    TheNotification: () => import('../components/TheNotification'),
+    TheHeader: () => import("../components/TheHeader.vue"),
+    TheFooter: () => import("../components/TheFooter.vue"),
+    TheNotification: () => import("../components/TheNotification"),
   },
-  data () {
-    return {
-    }
+  data() {
+    return {};
   },
-  head(){
+  head() {
     return {
-      title: 'Главная'
-    }
-  }
-}
+      title: "Главная",
+    };
+  },
+};
 </script>
 
 <style lang="scss">
-#app{
+#app {
   width: 100vw;
+  overflow-x: hidden;
   padding: 0 13vw;
+}
+@media all and (max-width: 768px) {
+  #app {
+    width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0 auto;
+  }
 }
 </style>

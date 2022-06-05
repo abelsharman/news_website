@@ -41,6 +41,7 @@ export default {
 
 @media all and (max-width: 768px) {
   .main {
+    overflow-x: hidden;
     &_section {
       display: flex;
       flex-direction: column;

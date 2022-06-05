@@ -110,6 +110,7 @@ export default {
 
 @media all and (max-width: 768px) {
   .footer {
+    overflow-x: hidden;
     border-top: 1px solid #000000;
     padding: 8px 0 20px 0;
     display: flex;

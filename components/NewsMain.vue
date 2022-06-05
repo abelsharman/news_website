@@ -38,6 +38,7 @@ export default {
 
 <style lang="scss" scoped>
 .main_news {
+  
   h2 {
     font-family: "Gilroy", sans-serif;
     font-style: normal;
@@ -84,6 +85,7 @@ export default {
 
 @media all and (max-width: 768px) {
   .main_news {
+    overflow-x: hidden;
     margin-bottom: 60px;
     h2 {
       font-size: 16px;

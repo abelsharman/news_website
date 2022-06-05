@@ -159,6 +159,7 @@ export default {
   justify-content: space-between;
   img,
   button:nth-child(2) {
+    height: auto;
     width: 9vw;
   }
   .nav_mobile {
@@ -190,6 +191,7 @@ export default {
 
 @media all and (max-width: 768px) {
   .header {
+    overflow-x: hidden;
     .nav {
       display: none;
     }
