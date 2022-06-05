@@ -83,7 +83,7 @@
       </v-col>
       <v-col xs="12" sm="12" lg="10">
         <div class="article_subtitle">
-          <span>{{ article.date }}</span>
+          <span>{{ date }}</span>
           <p>
             {{ article.subtitle }}
           </p>
@@ -129,6 +129,7 @@ export default {
   data() {
     return {
       article: [],
+      date: [],
     };
   },
   methods: {
@@ -136,6 +137,7 @@ export default {
       this.$axios.$get(`/api/news/${this.$route.params.id}`).then((res) => {
         this.article = res;
         console.log(this.article);
+        this.date = this.article.date.slice(0, 10);
       });
     },
   },

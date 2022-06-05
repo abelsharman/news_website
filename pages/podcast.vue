@@ -1,10 +1,16 @@
 <template>
-  <div class="main_news">
-    <h2>Главные новости</h2>
-    <img :src="`https://kapibackend.abelsharman.kz/${articles.img}`" alt="" />
-    <span class="main_news_tag"> #{{ articles.tag }} </span>
-    <h1 v-text="articles.title" @click="goPage(articles.id)"></h1>
-    <p v-text="date"></p>
+  <div class="world" v-if="!articles">
+    <h2>Подкасты</h2>
+    <div v-for="item in articles" :key="item.id" style="margin-bottom: 40px">
+      <img :src="`https://kapibackend.abelsharman.kz/${item.img}`" alt="" />
+      <span class="world_tag"> #{{ item.tag }} </span>
+      <h1 v-text="item.title" @click="goPage(item.id)"></h1>
+      <p>{{ item.subtitle }}</p>
+    </div>
+  </div>
+  <div class="world" v-else>
+    <h2>Подкасты</h2>
+    <h1 class="not_found">Новостей пока нет</h1>
   </div>
 </template>
 
@@ -19,11 +25,10 @@ export default {
   },
   methods: {
     getArticles() {
-      this.$axios.$get("/api/news").then((res) => {
+      this.$axios.$get("/api/news/podcasts").then((res) => {
         console.log(res);
-        this.articles = res[0];
-        console.log(this.articles);
-        this.date = this.articles.date.slice(0, 10);
+        this.articles = res;
+        console.log(this.articles, "MIR");
       });
     },
     goPage(id) {
@@ -37,7 +42,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main_news {
+.world {
+  margin-top: 40px;
+  .not_found {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #a3a3a3;
+    margin-bottom: 200px;
+  }
   h2 {
     font-family: "Gilroy", sans-serif;
     font-style: normal;
@@ -83,7 +98,7 @@ export default {
 }
 
 @media all and (max-width: 768px) {
-  .main_news {
+  .world {
     margin-bottom: 60px;
     h2 {
       font-size: 16px;

@@ -22,8 +22,8 @@
     <v-navigation-drawer v-model="drawer" absolute temporary right>
       <v-list nav>
         <v-list-item-group>
-          <v-list-item v-for="(item, index) in list" :key="index">
-            <v-list-item-title @click="tab = index">{{
+          <v-list-item v-for="(item, index) in mobile_list" :key="index">
+            <v-list-item-title @click="(tab = index), nav(item.link)">{{
               item.text
             }}</v-list-item-title>
           </v-list-item>
@@ -46,32 +46,79 @@ export default {
         {
           text: "Мир",
           value: "world",
-          link: "/",
+          link: "/World",
         },
         {
           text: "Бизнес",
           value: "business",
-          link: "/",
+          link: "/business",
         },
         {
           text: "Политика",
           value: "politology",
-          link: "/",
+          link: "/politics",
         },
         {
           text: "Спорт",
           value: "sport",
-          link: "/",
+          link: "/sport",
         },
         {
           text: "Подкасты",
           value: "podcasts",
-          link: "/",
+          link: "/podcast",
         },
         {
           text: "Интервью",
           value: "interview",
+          link: "/interview",
+        },
+      ],
+      mobile_list: [
+        {
+          text: "Главная",
+          value: "main",
           link: "/",
+        },
+        {
+          text: "Мир",
+          value: "world",
+          link: "/World",
+        },
+        {
+          text: "Бизнес",
+          value: "business",
+          link: "/business",
+        },
+        {
+          text: "Политика",
+          value: "politology",
+          link: "/politics",
+        },
+        {
+          text: "Спорт",
+          value: "sport",
+          link: "/sport",
+        },
+        {
+          text: "Подкасты",
+          value: "podcasts",
+          link: "/podcast",
+        },
+        {
+          text: "Интервью",
+          value: "interview",
+          link: "/interview",
+        },
+        {
+          text: "Войти",
+          value: "login",
+          link: "/Login",
+        },
+        {
+          text: "Поиск",
+          value: "search",
+          link: "/Search",
         },
       ],
       drawer: false,

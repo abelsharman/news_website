@@ -12,7 +12,6 @@
         <span>#{{ item.tag }}</span>
         <h3 @click="goPage(item.id)" v-text="item.title"></h3>
         <h4 v-text="item.subtitle"></h4>
-        <p v-text="item.date"></p>
       </div>
     </div>
     <div class="exclusive_second">
@@ -26,7 +25,6 @@
         <span>#{{ item.tag }}</span>
         <h3 @click="goPage(item.id)" v-text="item.title"></h3>
         <h4 v-text="item.subtitle"></h4>
-        <p v-text="item.date"></p>
       </div>
     </div>
   </div>
