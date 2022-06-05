@@ -74,11 +74,6 @@ export default {
           value: "podcasts",
           link: "/podcast",
         },
-        {
-          text: "Интервью",
-          value: "interview",
-          link: "/interview",
-        },
       ],
       mobile_list: [
         {
@@ -110,11 +105,6 @@ export default {
           text: "Подкасты",
           value: "podcasts",
           link: "/podcast",
-        },
-        {
-          text: "Интервью",
-          value: "interview",
-          link: "/interview",
         },
         {
           text: "Поиск",

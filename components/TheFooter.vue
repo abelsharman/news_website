@@ -56,11 +56,6 @@ export default {
           value: "podcasts",
           link: "/podcast",
         },
-        {
-          text: "Интервью",
-          value: "interview",
-          link: "/interview",
-        },
       ],
     };
   },
