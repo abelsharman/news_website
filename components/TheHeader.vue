@@ -18,7 +18,13 @@
     <div v-else>
       <v-btn color="error" @click="logout">Выйти</v-btn>
     </div>
-    <v-btn class="error nav_mobile" @click="drawer = true">Меню</v-btn>
+    <v-btn class="primary nav_mobile" @click="drawer = true">Меню</v-btn>
+    <v-btn
+      class="error logout_mobile"
+      v-if="$auth.$state.loggedIn"
+      @click="logout"
+      >Выйти</v-btn
+    >
     <v-navigation-drawer v-model="drawer" absolute temporary right>
       <v-list nav>
         <v-list-item-group>
@@ -111,14 +117,14 @@ export default {
           link: "/interview",
         },
         {
-          text: "Войти",
-          value: "login",
-          link: "/Login",
-        },
-        {
           text: "Поиск",
           value: "search",
           link: "/Search",
+        },
+        {
+          text: "Войти",
+          value: "login",
+          link: "/Login",
         },
       ],
       drawer: false,
@@ -133,6 +139,7 @@ export default {
     },
     async logout() {
       await this.$auth.logout();
+      this.$notify.success("Поздравляем! Вы успешно вышли из системы!");
     },
     goSearch() {
       this.$router.push("/Search");
@@ -167,6 +174,9 @@ export default {
   .nav_mobile {
     display: none;
   }
+  .logout_mobile {
+    display: none;
+  }
   div {
     span {
       display: inline-block;
@@ -194,12 +204,16 @@ export default {
       display: none;
     }
     img {
-      width: 40%;
+      width: 30%;
     }
     button {
       display: none;
     }
     .nav_mobile {
+      display: flex;
+      font-size: 14px;
+    }
+    .logout_mobile {
       display: flex;
       font-size: 14px;
     }

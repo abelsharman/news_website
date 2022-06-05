@@ -1,7 +1,12 @@
 <template>
   <div class="footer">
     <div class="footer_nav">
-      <p v-for="(item, index) in list" :key="index" v-text="item.text"></p>
+      <p
+        v-for="(item, index) in list"
+        :key="index"
+        v-text="item.text"
+        @click="nav(item.link)"
+      ></p>
     </div>
     <img src="../assets/images/logo.svg" alt="" />
     <div class="footer_links">
@@ -24,33 +29,45 @@ export default {
         {
           text: "Главная",
           value: "main",
+          link: "/",
         },
         {
           text: "Мир",
           value: "world",
+          link: "/World",
         },
         {
           text: "Бизнес",
           value: "business",
+          link: "/business",
         },
         {
           text: "Политика",
           value: "politology",
+          link: "/politics",
         },
         {
-          text: "Истории",
-          value: "history",
+          text: "Спорт",
+          value: "sport",
+          link: "/sport",
         },
         {
           text: "Подкасты",
           value: "podcasts",
+          link: "/podcast",
         },
         {
           text: "Интервью",
           value: "interview",
+          link: "/interview",
         },
       ],
     };
+  },
+  methods: {
+    nav(link) {
+      this.$router.push(link);
+    },
   },
 };
 </script>
