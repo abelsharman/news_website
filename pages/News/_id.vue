@@ -119,6 +119,15 @@
       </div>
       <div class="article_comments" v-if="article.comments">
         <h1>Комментариев пока нет.</h1>
+        <div class="article_comments_send" v-if="$auth.$state.loggedIn">
+          <v-textarea
+            outlined
+            name="input-3-4"
+            label="Оставьте комментарий"
+            v-model="comment"
+          ></v-textarea>
+          <v-btn class="error"><v-icon>mdi-send</v-icon></v-btn>
+        </div>
       </div>
     </v-row>
   </div>
@@ -130,6 +139,8 @@ export default {
     return {
       article: [],
       date: [],
+      comment: "",
+      user: "",
     };
   },
   methods: {
@@ -140,9 +151,14 @@ export default {
         this.date = this.article.date.slice(0, 10);
       });
     },
+    getMe() {
+      // this.user = jwt_decode(this.$auth.user);
+      // console.log(this.user);
+    },
   },
   mounted() {
     this.getArticle();
+    this.getMe();
   },
 };
 </script>
@@ -402,6 +418,9 @@ export default {
           font-size: 12px;
           color: #a3a3a3;
         }
+      }
+      &_send {
+        margin-bottom: 80px;
       }
     }
   }
