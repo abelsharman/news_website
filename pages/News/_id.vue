@@ -119,9 +119,9 @@
           <img src="@/assets/images/user.png" alt="#" />
         </div>
         <div class="article_comments_body">
-          <p class="name">{{ item.userId }}</p>
+          <p class="name">{{ test }}</p>
           <p class="body">{{ item.body }}</p>
-          <p class="date">{{ item.createdAt }}</p>
+          <p class="date">{{ item.createdAt.slice(0, 10) }}</p>
         </div>
       </div>
     </v-row>
@@ -156,11 +156,12 @@ export default {
   data() {
     return {
       article: [],
+      test: [],
       date: [],
       comment: "",
       comments: "",
       commentId: "",
-      user: "",
+      user: [],
       fake: "",
       disabled: false,
       timeout: null,
@@ -172,14 +173,14 @@ export default {
         this.article = res;
         console.log(this.article);
         this.date = this.article.date.slice(0, 10);
-        this.commentId = res.id;
+        this.commentId = res.comments;
         this.fake = res.likes;
       });
     },
     getMe() {
       if (this.$auth.$state.loggedIn) {
         this.user = jwt_decode(this.$auth.user.token);
-        console.log(this.user);
+        console.log(this.user, "user");
       } else {
         return null;
       }
@@ -187,6 +188,15 @@ export default {
     getComments() {
       this.$axios.$get(`/api/comments/`).then((res) => {
         console.log(res, "res");
+        setTimeout(() => {
+          res.forEach((item) => {
+            this.commentId.forEach((i) => {
+              if (i.userId == item.user.id) {
+                this.test = item.user.name;
+              }
+            });
+          });
+        }, 500);
       });
     },
     postComment() {
